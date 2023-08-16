@@ -10,6 +10,8 @@ public class CraneMovement : MonoBehaviour
     [SerializeField] private float ExtendForceUp;
     [SerializeField] private float ExtendForceDown;
     [SerializeField] private float MinDistanceToUpPosition_CraneArmExtend;
+    [Space(20)]
+    [SerializeField] private Animator ClawAnimator;
 
     private bool isUp;
     private bool craneArmExtendHasReachedUp;
@@ -34,6 +36,31 @@ public class CraneMovement : MonoBehaviour
             {
                 Start_CraneArmExtend_GoUp();
             }
+        }
+
+        if(Input.GetKeyDown(KeyCode.Space) == true)
+        {
+            /*
+            if(ClawAnimator.GetBool("CurrentOpenStatus") == true)
+            {
+                ClawAnimator.SetBool("CurrentOpenStatus", false);
+            }
+            else
+            {
+                ClawAnimator.SetBool("CurrentOpenStatus", true);
+            }
+            */
+
+            if(ClawAnimator.GetBool("NewOpenStatus") == true)
+            {
+                ClawAnimator.SetBool("NewOpenStatus", false);
+            }
+            else
+            {
+                ClawAnimator.SetBool("NewOpenStatus", true);
+            }
+
+
         }
     }
 
