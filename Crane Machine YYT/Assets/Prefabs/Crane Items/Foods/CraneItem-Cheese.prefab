@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2540328087775281041}
   - component: {fileID: 8145828016947058243}
   - component: {fileID: 7484613098209230567}
+  - component: {fileID: 2849427211909130507}
   m_Layer: 0
   m_Name: CraneItem-Cheese
   m_TagString: Food_Items
@@ -90,6 +91,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &2849427211909130507
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7431654233425341536}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26c8f196792f4c144a51943a56e98d69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FoodScoreValue: 70
 --- !u!1001 &7431654233496476158
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -19,4 +19,11 @@ public static class MyEnum
         Down = 2,
         Going_Up = 3
     }
+
+    public enum CameraPositionStatus
+    {
+        Left = 0,
+        Middle = 1,
+        Right = 2
+    }
 }

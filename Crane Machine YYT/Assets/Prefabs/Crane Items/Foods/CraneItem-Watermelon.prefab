@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 188968528143152525}
   - component: {fileID: 188968528143152524}
   - component: {fileID: 3144493369225882202}
+  - component: {fileID: 8118270585895608635}
   m_Layer: 0
   m_Name: CraneItem-Watermelon
   m_TagString: Food_Items
@@ -90,6 +91,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &8118270585895608635
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 188968528143152521}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26c8f196792f4c144a51943a56e98d69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FoodScoreValue: 80
 --- !u!1001 &188968528928197840
 PrefabInstance:
   m_ObjectHideFlags: 0

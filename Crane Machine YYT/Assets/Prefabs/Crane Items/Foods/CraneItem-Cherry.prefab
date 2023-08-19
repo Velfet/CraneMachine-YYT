@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 3829662990811780102}
   - component: {fileID: 8266338001595906087}
   - component: {fileID: 6224414616901614780}
+  - component: {fileID: 7123005438476083415}
   m_Layer: 0
   m_Name: CraneItem-Cherry
   m_TagString: Food_Items
@@ -118,6 +119,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &7123005438476083415
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2425403657067397128}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26c8f196792f4c144a51943a56e98d69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FoodScoreValue: 100
 --- !u!1001 &2425403656812929398
 PrefabInstance:
   m_ObjectHideFlags: 0

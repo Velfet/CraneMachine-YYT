@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8932927538971435891}
   - component: {fileID: 8932927538971435888}
   - component: {fileID: 4048680358382263646}
+  - component: {fileID: 6434624803265678927}
   m_Layer: 0
   m_Name: CraneItem-Hotdog
   m_TagString: Food_Items
@@ -63,6 +64,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &6434624803265678927
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8932927538971435889}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26c8f196792f4c144a51943a56e98d69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FoodScoreValue: 60
 --- !u!1001 &8932927540495786754
 PrefabInstance:
   m_ObjectHideFlags: 0

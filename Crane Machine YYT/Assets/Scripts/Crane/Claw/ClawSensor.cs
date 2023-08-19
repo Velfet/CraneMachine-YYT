@@ -11,7 +11,7 @@ public class ClawSensor : MonoBehaviour
     {
         if(collider.gameObject.tag == FoodItems_Tag)
         {
-            Debug.LogWarning("Claw has touched food item");
+            //Debug.LogWarning("Claw has touched food item");
             CraneMovement.CraneExtendFinishedMidway();
         }
     }

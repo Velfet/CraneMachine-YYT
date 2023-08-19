@@ -33,6 +33,38 @@ public class @CraneControls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Move_Camera_Left"",
+                    ""type"": ""Button"",
+                    ""id"": ""8b48ea1c-0267-4840-bf6d-bcc4b27898d0"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Move_Camera_Right"",
+                    ""type"": ""Button"",
+                    ""id"": ""4557cae4-06d1-4789-9841-ef8b465e34fd"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Respawn_FoodItems"",
+                    ""type"": ""Button"",
+                    ""id"": ""ed3e82c7-b58d-46c9-baa1-310bddb625ca"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""ExitGame"",
+                    ""type"": ""Button"",
+                    ""id"": ""e7f04705-9e1e-4f12-b6a7-f1f3ace0fe2e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -222,6 +254,94 @@ public class @CraneControls : IInputActionCollection, IDisposable
                     ""action"": ""Drop_Crane"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1fd08445-0d6f-44e9-8854-53f5d48ec6d6"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Move_Camera_Left"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""68240b7a-3a73-48dc-846b-0065e36d8b54"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Move_Camera_Left"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""05a7bcbb-f4ed-4cd8-8765-c41fdbd537a7"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Move_Camera_Right"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""711827d1-f4e9-4193-b76a-a4c9c7e7bb0c"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Move_Camera_Right"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ddf7ab07-a7e6-485b-91b4-de2931ad2739"",
+                    ""path"": ""<Keyboard>/f5"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Respawn_FoodItems"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d5d48a29-5907-4cee-a928-d0141e9fe64c"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Respawn_FoodItems"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a8f9b822-9458-4bca-b4cd-abd7c5adf328"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""ExitGame"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6e7219f8-6274-4bb8-aaeb-1535a4e61971"",
+                    ""path"": ""<Gamepad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""ExitGame"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -255,6 +375,10 @@ public class @CraneControls : IInputActionCollection, IDisposable
         m_Crane_Actions = asset.FindActionMap("Crane_Actions", throwIfNotFound: true);
         m_Crane_Actions_Movement = m_Crane_Actions.FindAction("Movement", throwIfNotFound: true);
         m_Crane_Actions_Drop_Crane = m_Crane_Actions.FindAction("Drop_Crane", throwIfNotFound: true);
+        m_Crane_Actions_Move_Camera_Left = m_Crane_Actions.FindAction("Move_Camera_Left", throwIfNotFound: true);
+        m_Crane_Actions_Move_Camera_Right = m_Crane_Actions.FindAction("Move_Camera_Right", throwIfNotFound: true);
+        m_Crane_Actions_Respawn_FoodItems = m_Crane_Actions.FindAction("Respawn_FoodItems", throwIfNotFound: true);
+        m_Crane_Actions_ExitGame = m_Crane_Actions.FindAction("ExitGame", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -306,12 +430,20 @@ public class @CraneControls : IInputActionCollection, IDisposable
     private ICrane_ActionsActions m_Crane_ActionsActionsCallbackInterface;
     private readonly InputAction m_Crane_Actions_Movement;
     private readonly InputAction m_Crane_Actions_Drop_Crane;
+    private readonly InputAction m_Crane_Actions_Move_Camera_Left;
+    private readonly InputAction m_Crane_Actions_Move_Camera_Right;
+    private readonly InputAction m_Crane_Actions_Respawn_FoodItems;
+    private readonly InputAction m_Crane_Actions_ExitGame;
     public struct Crane_ActionsActions
     {
         private @CraneControls m_Wrapper;
         public Crane_ActionsActions(@CraneControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @Movement => m_Wrapper.m_Crane_Actions_Movement;
         public InputAction @Drop_Crane => m_Wrapper.m_Crane_Actions_Drop_Crane;
+        public InputAction @Move_Camera_Left => m_Wrapper.m_Crane_Actions_Move_Camera_Left;
+        public InputAction @Move_Camera_Right => m_Wrapper.m_Crane_Actions_Move_Camera_Right;
+        public InputAction @Respawn_FoodItems => m_Wrapper.m_Crane_Actions_Respawn_FoodItems;
+        public InputAction @ExitGame => m_Wrapper.m_Crane_Actions_ExitGame;
         public InputActionMap Get() { return m_Wrapper.m_Crane_Actions; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -327,6 +459,18 @@ public class @CraneControls : IInputActionCollection, IDisposable
                 @Drop_Crane.started -= m_Wrapper.m_Crane_ActionsActionsCallbackInterface.OnDrop_Crane;
                 @Drop_Crane.performed -= m_Wrapper.m_Crane_ActionsActionsCallbackInterface.OnDrop_Crane;
                 @Drop_Crane.canceled -= m_Wrapper.m_Crane_ActionsActionsCallbackInterface.OnDrop_Crane;
+                @Move_Camera_Left.started -= m_Wrapper.m_Crane_ActionsActionsCallbackInterface.OnMove_Camera_Left;
+                @Move_Camera_Left.performed -= m_Wrapper.m_Crane_ActionsActionsCallbackInterface.OnMove_Camera_Left;
+                @Move_Camera_Left.canceled -= m_Wrapper.m_Crane_ActionsActionsCallbackInterface.OnMove_Camera_Left;
+                @Move_Camera_Right.started -= m_Wrapper.m_Crane_ActionsActionsCallbackInterface.OnMove_Camera_Right;
+                @Move_Camera_Right.performed -= m_Wrapper.m_Crane_ActionsActionsCallbackInterface.OnMove_Camera_Right;
+                @Move_Camera_Right.canceled -= m_Wrapper.m_Crane_ActionsActionsCallbackInterface.OnMove_Camera_Right;
+                @Respawn_FoodItems.started -= m_Wrapper.m_Crane_ActionsActionsCallbackInterface.OnRespawn_FoodItems;
+                @Respawn_FoodItems.performed -= m_Wrapper.m_Crane_ActionsActionsCallbackInterface.OnRespawn_FoodItems;
+                @Respawn_FoodItems.canceled -= m_Wrapper.m_Crane_ActionsActionsCallbackInterface.OnRespawn_FoodItems;
+                @ExitGame.started -= m_Wrapper.m_Crane_ActionsActionsCallbackInterface.OnExitGame;
+                @ExitGame.performed -= m_Wrapper.m_Crane_ActionsActionsCallbackInterface.OnExitGame;
+                @ExitGame.canceled -= m_Wrapper.m_Crane_ActionsActionsCallbackInterface.OnExitGame;
             }
             m_Wrapper.m_Crane_ActionsActionsCallbackInterface = instance;
             if (instance != null)
@@ -337,6 +481,18 @@ public class @CraneControls : IInputActionCollection, IDisposable
                 @Drop_Crane.started += instance.OnDrop_Crane;
                 @Drop_Crane.performed += instance.OnDrop_Crane;
                 @Drop_Crane.canceled += instance.OnDrop_Crane;
+                @Move_Camera_Left.started += instance.OnMove_Camera_Left;
+                @Move_Camera_Left.performed += instance.OnMove_Camera_Left;
+                @Move_Camera_Left.canceled += instance.OnMove_Camera_Left;
+                @Move_Camera_Right.started += instance.OnMove_Camera_Right;
+                @Move_Camera_Right.performed += instance.OnMove_Camera_Right;
+                @Move_Camera_Right.canceled += instance.OnMove_Camera_Right;
+                @Respawn_FoodItems.started += instance.OnRespawn_FoodItems;
+                @Respawn_FoodItems.performed += instance.OnRespawn_FoodItems;
+                @Respawn_FoodItems.canceled += instance.OnRespawn_FoodItems;
+                @ExitGame.started += instance.OnExitGame;
+                @ExitGame.performed += instance.OnExitGame;
+                @ExitGame.canceled += instance.OnExitGame;
             }
         }
     }
@@ -363,5 +519,9 @@ public class @CraneControls : IInputActionCollection, IDisposable
     {
         void OnMovement(InputAction.CallbackContext context);
         void OnDrop_Crane(InputAction.CallbackContext context);
+        void OnMove_Camera_Left(InputAction.CallbackContext context);
+        void OnMove_Camera_Right(InputAction.CallbackContext context);
+        void OnRespawn_FoodItems(InputAction.CallbackContext context);
+        void OnExitGame(InputAction.CallbackContext context);
     }
 }

@@ -5,6 +5,13 @@ using UnityEngine.InputSystem;
 
 public class CraneMovement : MonoBehaviour
 {
+    [SerializeField] private CongratulationsPanel CongratulationsPanel;
+    [Space(20)]
+    [SerializeField] private FoodItemSpawner FoodItemSpawner;
+    [Space(20)]
+    [SerializeField] private CameraShift CameraShift;
+    [SerializeField] private MyEnum.CameraPositionStatus CurrentCameraPositionStatus;
+    [Space(20)]
     [SerializeField] private MyEnum.CraneClawState CurrentCraneClawState;
     [SerializeField] private MyEnum.CraneExtendStatus CurrentCraneExtendStatus;
     [Space(20)]
@@ -27,9 +34,12 @@ public class CraneMovement : MonoBehaviour
     [SerializeField] private float CraneClawOpenDuration;
     [Space(20)]
     [SerializeField] private Animator ClawAnimator;
+    [Space(20)]
+    [SerializeField] private List<GameObject> FoodObjects;
 
     //private bool isUp;
     //private bool craneArmExtendHasReachedUp;
+    private GameStatusManager gameStatusManager;
     private Vector3 craneArmExtendUpPosition;
     private float craneArmExtendYDistance;
 
@@ -43,10 +53,16 @@ public class CraneMovement : MonoBehaviour
 
     private void Awake()
     {
+        GetReferences();
+
         CraneControls = new CraneControls();
         CraneControls.Crane_Actions.Enable();
 
         CraneControls.Crane_Actions.Drop_Crane.performed += DropCraneArm;
+        CraneControls.Crane_Actions.Move_Camera_Left.performed += ShiftCameraLeft;
+        CraneControls.Crane_Actions.Move_Camera_Right.performed += ShiftCameraRight;
+        CraneControls.Crane_Actions.Respawn_FoodItems.performed += RespawnFoodItems;
+        CraneControls.Crane_Actions.ExitGame.performed += ExitGame;
     }
 
     // Start is called before the first frame update
@@ -66,6 +82,16 @@ public class CraneMovement : MonoBehaviour
             CraneMoveVector = CraneControls.Crane_Actions.Movement.ReadValue<Vector2>();
             CraneMoveVector.z = CraneMoveVector.y;
             CraneMoveVector.y = 0f;
+
+            //Rotate move vector depending on the camera's position
+            if(CurrentCameraPositionStatus == MyEnum.CameraPositionStatus.Left)
+            {
+                CraneMoveVector = Quaternion.AngleAxis(90f, Vector3.up) * CraneMoveVector;
+            }
+            else if(CurrentCameraPositionStatus == MyEnum.CameraPositionStatus.Right)
+            {
+                CraneMoveVector = Quaternion.AngleAxis(-90f, Vector3.up) * CraneMoveVector;
+            }
         }
         else
         {
@@ -146,7 +172,7 @@ public class CraneMovement : MonoBehaviour
                 //Move the crane if it has moved beyond the movement limits
                 if(NewCraneBasePos != CraneBaseTransform.position)
                 {
-                    Debug.LogWarning("Correcting position");
+                    //Debug.LogWarning("Correcting position");
                     CraneBaseTransform.position = NewCraneBasePos;
 
                 }
@@ -206,7 +232,7 @@ public class CraneMovement : MonoBehaviour
     private void CraneExtendFinished()
     {
         //Crane arm has finished extending down
-        Debug.LogWarning("Y pos: " + CraneArmExtendTransform.position.y);
+        //Debug.LogWarning("Y pos: " + CraneArmExtendTransform.position.y);
         CurrentCraneExtendStatus = MyEnum.CraneExtendStatus.Down;
         CraneArmExtendRB.constraints = RigidbodyConstraints.FreezePositionY;
         CraneGrabberBaseRB.useGravity = false;
@@ -313,9 +339,44 @@ public class CraneMovement : MonoBehaviour
     private void CheckCraneClawItems()
     {
         //Check if the claw has grabbed any items
+        if(FoodObjects.Count > 0)
+        {
+            //Claw has grabbed at least 1 item
+            for(int i = 0; i < FoodObjects.Count; i++)
+            {
+                //Add score from food iem to score
+                FoodItem foodItem = FoodObjects[i].GetComponent<FoodItem>();
+                gameStatusManager.UpdateScore(foodItem.GetFoodScoreValue());
+                //Remove food item
+                RemoveFoodObject(FoodObjects[i]);
+                //Return food item to pooler
+                foodItem.ReturnFoodItem();
+            }
+
+            //Do some kind of UI celebration here???
+            CongratulationsPanel.BeginCongratulation_Start();
+        }
         
         //Open the claw after checking (probably only temporary)
         Start_CraneClaw_Open();
+    }
+
+    public void AddFoodObject(GameObject theFood)
+    {
+        //Add the food if it is not already on the list
+        if(FoodObjects.Contains(theFood) == false)
+        {
+            FoodObjects.Add(theFood);            
+        }
+    }
+
+    public void RemoveFoodObject(GameObject theFood)
+    {
+        //Remove the food if it is on the list
+        if(FoodObjects.Contains(theFood) == true)
+        {
+            FoodObjects.Remove(theFood);
+        }
     }
 
     public void CraneExtendFinishedMidway()
@@ -324,6 +385,58 @@ public class CraneMovement : MonoBehaviour
         if(CurrentCraneExtendStatus == MyEnum.CraneExtendStatus.Going_Down)
         {
             CraneExtendFinished();
+        }
+    }
+
+    private void ShiftCameraLeft(InputAction.CallbackContext context)
+    {
+        if(CurrentCameraPositionStatus == MyEnum.CameraPositionStatus.Middle)
+        {
+            CameraShift.ShiftCameraToLeft();
+            CurrentCameraPositionStatus = MyEnum.CameraPositionStatus.Left;
+        }
+        else if(CurrentCameraPositionStatus == MyEnum.CameraPositionStatus.Right)
+        {
+            CameraShift.ShiftCameraToMiddle();
+            CurrentCameraPositionStatus = MyEnum.CameraPositionStatus.Middle;
+        }
+    }
+
+    private void ShiftCameraRight(InputAction.CallbackContext context)
+    {
+        if(CurrentCameraPositionStatus == MyEnum.CameraPositionStatus.Middle)
+        {
+            CameraShift.ShiftCameraToRight();
+            CurrentCameraPositionStatus = MyEnum.CameraPositionStatus.Right;
+        }
+        else if(CurrentCameraPositionStatus == MyEnum.CameraPositionStatus.Left)
+        {
+            CameraShift.ShiftCameraToMiddle();
+            CurrentCameraPositionStatus = MyEnum.CameraPositionStatus.Middle;
+        }
+    }
+
+    private void RespawnFoodItems(InputAction.CallbackContext context)
+    {
+        //Empty the food objects list
+        FoodObjects.Clear();
+        //Note: for longer lists, if you want to empty them, use .Clear() and then use .TrimExcess() because if you don't use TrimExcess(), the capacity of the list
+        //will remain the same as the capacity of the list before you cleared it. Because this list will only have around 1-3 elements, it should be fine not to use TrimExcess()
+
+        //Respawn the food items
+        FoodItemSpawner.RespawnFoodItems();
+    }
+
+    private void ExitGame(InputAction.CallbackContext context)
+    {
+        gameStatusManager.ExitGame();
+    }
+
+    private void GetReferences()
+    {
+        if(gameStatusManager == null)
+        {
+            gameStatusManager = GameStatusManager.GetInstance();
         }
     }
 }
