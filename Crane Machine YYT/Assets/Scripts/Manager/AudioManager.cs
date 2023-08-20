@@ -35,7 +35,7 @@ public class AudioManager : MonoBehaviour
         {
             AudioClip clip = Resources.Load<AudioClip>("Audio/SFX/" + type);
             _soundDictionary_SFX[type] = clip;
-            Debug.LogWarning("SFX clip name: " + clip.name);
+            //Debug.LogWarning("SFX clip name: " + clip.name);
         }
 
         //Set up bgm clips
@@ -44,7 +44,7 @@ public class AudioManager : MonoBehaviour
         {
             AudioClip clip = Resources.Load<AudioClip>("Audio/BGM/" + type);
             _soundDictionary_BGM[type] = clip;
-            Debug.LogWarning("BGM clip name: " + clip.name);
+            //Debug.LogWarning("BGM clip name: " + clip.name);
         }
 
         if(audioManager != null)

@@ -54,8 +54,6 @@ public class CraneMovement : MonoBehaviour
 
     private void Awake()
     {
-        GetReferences();
-
         CraneControls = new CraneControls();
         CraneControls.Crane_Actions.Enable();
 
@@ -69,6 +67,7 @@ public class CraneMovement : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
+        GetReferences();
         CurrentCraneClawState = MyEnum.CraneClawState.Open;
         CurrentCraneExtendStatus = MyEnum.CraneExtendStatus.Up;
         //craneArmExtendHasReachedUp = true;

@@ -39,7 +39,7 @@ public class MasterPlayerData : MonoBehaviour
 
     private void Start()
     {
-        UpdateVolume(0.2f, 0.12f);
+        UpdateVolume(0.2f, 0.1f);
         //Play bgm
         audioManager.PlayBGM(MyEnum.Sound_BGM.BGM1);
     }
