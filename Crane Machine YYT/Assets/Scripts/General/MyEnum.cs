@@ -26,4 +26,25 @@ public static class MyEnum
         Middle = 1,
         Right = 2
     }
+
+    public enum AudioSource
+    {
+        OneShot = 0,
+        SFX = 1,
+        SFX_Loop = 2,
+        BGM = 3
+    }
+
+    public enum Sound_SFX
+    {
+        CraneMove = 0,
+        CraneExtendOrUnextend = 1,
+        ClawOpenOrClose = 2,
+        Congratulations = 3,
+    }
+
+    public enum Sound_BGM
+    {
+        BGM1 = 0
+    }
 }

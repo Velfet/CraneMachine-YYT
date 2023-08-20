@@ -8,6 +8,8 @@ public class MasterPlayerData : MonoBehaviour
 
     public static MasterPlayerData masterPlayerData;
 
+    private AudioManager audioManager;
+
     private void Awake()
     {
         SavedPlayerData loadedData = SaveSystem.LoadData();
@@ -35,6 +37,13 @@ public class MasterPlayerData : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        UpdateVolume(0.2f, 0.12f);
+        //Play bgm
+        audioManager.PlayBGM(MyEnum.Sound_BGM.BGM1);
+    }
+
     public int GetPlayerHighScore()
     {
         return PlayerHighScore;
@@ -48,6 +57,17 @@ public class MasterPlayerData : MonoBehaviour
             PlayerHighScore = newScore;
             SaveData();
         }
+    }
+
+    public void UpdateVolume(float newSfxVol, float newBgmVol)
+    {
+        if(audioManager == null)
+        {
+            audioManager = AudioManager.audioManager;
+        }
+
+        audioManager.UpdateSFXVolume(newSfxVol);
+        audioManager.UpdaetBGMVolume(newBgmVol);
     }
 
     public void SaveData()

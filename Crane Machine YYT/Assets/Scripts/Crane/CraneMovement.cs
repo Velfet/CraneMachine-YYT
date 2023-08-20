@@ -40,6 +40,7 @@ public class CraneMovement : MonoBehaviour
     //private bool isUp;
     //private bool craneArmExtendHasReachedUp;
     private GameStatusManager gameStatusManager;
+    public AudioManager audioManager;
     private Vector3 craneArmExtendUpPosition;
     private float craneArmExtendYDistance;
 
@@ -149,6 +150,9 @@ public class CraneMovement : MonoBehaviour
                 //Move the crane
                 CraneBaseTransform.Translate(CraneMoveVector * CraneMoveForce * Time.deltaTime);
 
+                //Play crane move SFX
+                audioManager.PlaySFX_Loop(MyEnum.Sound_SFX.CraneMove);
+
                 //Check if crane has moved beyond the limits of the crane machine
                 NewCraneBasePos =  CraneBaseTransform.position;
                 if(CraneBaseTransform.position.x > CraneXMoveLimit)
@@ -176,6 +180,11 @@ public class CraneMovement : MonoBehaviour
                     CraneBaseTransform.position = NewCraneBasePos;
 
                 }
+            }
+            else
+            {
+                //Stop crane move SFX
+                audioManager.StopSFX_Loop();
             }
         }
         
@@ -208,13 +217,15 @@ public class CraneMovement : MonoBehaviour
             else
             {
                 //CraneArmExtend has reached the up position
+                //Stop crane unextend sfx
+                audioManager.StopSFX_Loop();
                 //Debug.LogWarning("Crane arm extend has reached up position");
                 CurrentCraneExtendStatus = MyEnum.CraneExtendStatus.Up;
                 Disable_CraneArmExtend_Movement();
                 CheckCraneClawItems();
             }
         }
-        else if(CurrentCraneExtendStatus == MyEnum.CraneExtendStatus.Down)
+        else if(CurrentCraneExtendStatus == MyEnum.CraneExtendStatus.Down && CurrentCraneClawState != MyEnum.CraneClawState.Closing)
         {
             //CraneArmExtendRB.constraints = RigidbodyConstraints.FreezePositionY;
             //CraneGrabberBaseRB.constraints = RigidbodyConstraints.None;
@@ -232,6 +243,8 @@ public class CraneMovement : MonoBehaviour
     private void CraneExtendFinished()
     {
         //Crane arm has finished extending down
+        //Stop crane extend sfx
+        audioManager.StopSFX_Loop();
         //Debug.LogWarning("Y pos: " + CraneArmExtendTransform.position.y);
         CurrentCraneExtendStatus = MyEnum.CraneExtendStatus.Down;
         CraneArmExtendRB.constraints = RigidbodyConstraints.FreezePositionY;
@@ -243,6 +256,10 @@ public class CraneMovement : MonoBehaviour
     {
         if(CurrentCraneClawState == MyEnum.CraneClawState.Open && CurrentCraneExtendStatus == MyEnum.CraneExtendStatus.Up)
         {
+            //Stop crane move sfx
+            audioManager.StopSFX_Loop();
+            //Play crane extend sfx
+            audioManager.PlaySFX_Loop(MyEnum.Sound_SFX.CraneExtendOrUnextend);
             //Crane is in open state and is not extended, can drop the crane arm
             Start_CraneArmExtend_GoDown();
         }
@@ -273,6 +290,8 @@ public class CraneMovement : MonoBehaviour
 
     private void Start_CraneClaw_Close()
     {
+        //Play close claw sfx
+        audioManager.PlayOneShot(MyEnum.Sound_SFX.ClawOpenOrClose);
         //Close the claw
         if(CraneClawCloseRoutine != null)
         {
@@ -284,6 +303,8 @@ public class CraneMovement : MonoBehaviour
 
     private void Start_CraneClaw_Open()
     {
+        //Play open claw sfx
+        audioManager.PlayOneShot(MyEnum.Sound_SFX.ClawOpenOrClose);
         //Open the claw
         if(CraneClawOpenRoutine != null)
         {
@@ -310,6 +331,8 @@ public class CraneMovement : MonoBehaviour
         //Claw has been closed, send the crane up
         CurrentCraneClawState = MyEnum.CraneClawState.Close;
         CurrentCraneExtendStatus = MyEnum.CraneExtendStatus.Going_Up;
+        //Play crane unextend sfx
+        audioManager.PlaySFX_Loop(MyEnum.Sound_SFX.CraneExtendOrUnextend);
     }
 
     private IEnumerator OpenCraneClaw()
@@ -353,7 +376,9 @@ public class CraneMovement : MonoBehaviour
                 foodItem.ReturnFoodItem();
             }
 
-            //Do some kind of UI celebration here???
+            //Do some kind of UI celebration here
+            //Play congratulations sfx
+            audioManager.PlayOneShot(MyEnum.Sound_SFX.Congratulations);
             CongratulationsPanel.BeginCongratulation_Start();
         }
         
@@ -437,6 +462,11 @@ public class CraneMovement : MonoBehaviour
         if(gameStatusManager == null)
         {
             gameStatusManager = GameStatusManager.GetInstance();
+        }
+
+        if(audioManager == null)
+        {
+            audioManager = AudioManager.audioManager;
         }
     }
 }
